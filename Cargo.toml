@@ -6,8 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tbot = {git = "https://github.com/tbot-rs/tbot/"}
-tokio = { version = "1.*", features = ["macros", "sync", "rt-multi-thread", "rt"] }
-meval = "*"
-rand = "*"
+tbot = { git = "https://github.com/tbot-rs/tbot/" }
+tokio = { version = "1", features = ["macros", "sync", "rt", "rt-multi-thread"] }
+rand = "0.8.*"
 tokio-postgres = "0.7.5"
+meval = "0.2.*"

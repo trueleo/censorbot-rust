@@ -37,10 +37,11 @@ fn check_connection(guard: &MutexGuard<'_, State> ) {
 
 async fn connect() -> (Client, tokio_postgres::Connection<tokio_postgres::Socket, tokio_postgres::tls::NoTlsStream>) {
     
-    let db_host = env::var("DB_HOST").unwrap();
-    let db_port= env::var("DB_PORT").unwrap().parse::<u16>().unwrap();
-    let db_pass = env::var("DB_PASS").unwrap();
-    let db_user = env::var("DB_USER").unwrap();
+    let db_host = env::var("DB_HOST").expect("set host");
+    let db_port= env::var("DB_PORT").expect("set port").parse::<u16>().unwrap();
+    let db_pass = env::var("DB_PASS").expect("set pass");
+    let db_user = env::var("DB_USER").expect("set user");
+    let db_name = env::var("DB_NAME").expect("set name");
 
 
     Config::new()
@@ -48,6 +49,7 @@ async fn connect() -> (Client, tokio_postgres::Connection<tokio_postgres::Socket
     .port(db_port)
     .user(&db_user)
     .password(&db_pass)
+    .dbname(&db_name)
     .ssl_mode(SslMode::Disable)
     .connect(NoTls).await.expect("failed to connect to db")
 }
