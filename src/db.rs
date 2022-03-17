@@ -1,9 +1,9 @@
+use std::env;
 use std::sync::Arc;
 use tokio::sync::{Mutex, MutexGuard};
 use tokio_postgres::Config;
 use tokio_postgres::config::SslMode;
 pub use tokio_postgres::{Error, NoTls, Client};
-
 use crate::State;
 
 #[derive(Debug)]
@@ -36,11 +36,18 @@ fn check_connection(guard: &MutexGuard<'_, State> ) {
 }
 
 async fn connect() -> (Client, tokio_postgres::Connection<tokio_postgres::Socket, tokio_postgres::tls::NoTlsStream>) {
+    
+    let db_host = env::var("DB_HOST").unwrap();
+    let db_port= env::var("DB_PORT").unwrap().parse::<u16>().unwrap();
+    let db_pass = env::var("DB_PASS").unwrap();
+    let db_user = env::var("DB_USER").unwrap();
+
+
     Config::new()
-    .host("localhost")
-    .port(5432)
-    .user("postgres")
-    .password("toor")
+    .host(&db_host)
+    .port(db_port)
+    .user(&db_user)
+    .password(&db_pass)
     .ssl_mode(SslMode::Disable)
     .connect(NoTls).await.expect("failed to connect to db")
 }
