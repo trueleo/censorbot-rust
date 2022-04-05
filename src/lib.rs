@@ -224,8 +224,8 @@ fn gen_uid() -> String {
 pub async fn send_deeplinks(bot: &Bot, chat_id: chat::Id, uuid: String, reply_text: String) {
     let link = link(
         ">> view",
-        format!("t.me/{}/?start={}", config::BOTNAME, uuid),
+        format!("tg://resolve?domain={}&start={}", config::BOTNAME, uuid),
     );
     let text = markdown_v2((reply_text, bold(link)));
-    bot.send_message(chat_id, text).call().await.unwrap();
+    bot.send_message(chat_id, text).is_web_page_preview_disabled(true).call().await.unwrap();
 }
