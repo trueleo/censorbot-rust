@@ -26,7 +26,8 @@ async fn main() {
     let p = bot
     .webhook(URL, PORT.parse::<u16>().unwrap())
     .allowed_updates(AllowedUpdates::none().message(true))
-    .bind_to(IpAddr::V6(Ipv6Addr::from_str(HOST_IP).expect("unable to parse HOST_IP")))
+    .ip_address(IpAddr::V6(Ipv6Addr::from_str(HOST_IP).expect("unable to parse HOST_IP")))
+    .bind_to(IpAddr::V6(Ipv6Addr::UNSPECIFIED))
     .http();
 
     select! {
