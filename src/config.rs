@@ -1,5 +1,6 @@
 pub const BOTNAME: &'static str = env!("BOTNAME");
-
+pub const URL: &'static str = env!("URL");
+pub const PORT: &'static str = env!("PORT");
 pub const START_MESSAGE: &str = "
     Hey, To create a censored post, you can share any album, video, photo, gif, sticker, etc. The messages could then be forwarded to any chat for them to view
 ";

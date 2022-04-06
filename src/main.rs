@@ -19,8 +19,9 @@ async fn main() {
 
     bot.unhandled(media_update_handler);
 
-    let p = bot.polling()
-        .allowed_updates(AllowedUpdates::none().message(true));
+    let p = bot
+    .webhook(config::URL, config::PORT)
+    .allowed_updates(AllowedUpdates::none().message(true));
 
     select! {
         _ = p.start() => {},
