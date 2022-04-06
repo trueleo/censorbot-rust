@@ -25,7 +25,7 @@ async fn main() {
     let p = bot
     .webhook(URL, PORT.parse::<u16>().unwrap())
     .allowed_updates(AllowedUpdates::none().message(true))
-    .ip_address(IpAddr::V6(Ipv6Addr::UNSPECIFIED))
+    .bind_to(IpAddr::V6(Ipv6Addr::UNSPECIFIED))
     .http();
 
     select! {
