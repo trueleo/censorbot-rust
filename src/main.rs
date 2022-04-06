@@ -21,7 +21,7 @@ async fn main() {
     bot.unhandled(media_update_handler);
 
     let p = bot
-    .webhook(config::URL, config::PORT)
+    .webhook(config::URL, config::PORT.parse::<u16>().unwrap())
     .allowed_updates(AllowedUpdates::none().message(true));
 
     select! {
