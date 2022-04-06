@@ -3,6 +3,7 @@ use tbot::types::parameters::AllowedUpdates;
 use tokio::select;
 use tokio::sync::{Mutex, mpsc};
 use censorbot::db;
+use censorbot::config;
 
 #[tokio::main]
 async fn main() {
