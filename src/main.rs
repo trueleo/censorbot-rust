@@ -1,4 +1,4 @@
-use std::net::{IpAddr, Ipv4Addr};
+use std::net::{IpAddr, Ipv6Addr};
 
 use censorbot::{State, media_update_handler, handle_start};
 use tbot::types::parameters::AllowedUpdates;
@@ -25,11 +25,11 @@ async fn main() {
     let p = bot
     .webhook(URL, PORT.parse::<u16>().unwrap())
     .allowed_updates(AllowedUpdates::none().message(true))
-    .ip_address(IpAddr::V4(Ipv4Addr::UNSPECIFIED))
+    .ip_address(IpAddr::V4(Ipv6Addr::UNSPECIFIED))
     .http();
 
     select! {
-        _ = p.start() => {},
+        err = p.start() =>  { eprintln!("{:?}", err) },
         _ = rx.recv() => {
             panic!("shutdown signal received")
         }
