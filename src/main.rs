@@ -6,7 +6,9 @@ use censorbot::db;
 
 #[tokio::main]
 async fn main() {
-
+    
+    tracing_subscriber::fmt::init();
+    
     let client = db::init_db().await.expect("failed to get Client");
     let (tx, mut rx) = mpsc::unbounded_channel::<usize>();
     
